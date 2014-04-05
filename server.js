@@ -16,7 +16,21 @@ app.get('/',function(req,res){
 
 var playerCount = 0;
 var players = {};
-var state = {};
+
+var currentState = {
+    "up":false,
+    "down":false,
+    "left":false,
+    "right":false,
+    "a":false,
+    "b":false,
+    "start":false,
+    "select":false
+};
+
+var newState = {};
+
+var threshold = .5;
 
 io.sockets.on('connection', function(socket){
         
@@ -38,7 +52,6 @@ io.sockets.on('connection', function(socket){
     socket.on('keys', function(data){
         
         players[socket.id].keys = data;
-        console.log(data);
         updateKeys();
     });
 
@@ -77,12 +90,33 @@ function updateKeys(){
                 	
     }
     
+    newState = {};
     
-    // then set game keys 
-    if(aCount==1){
-        mc.keyHold("x");
-        setInterval(function(){
+    newState.up = Math.round((upCount / playerCount)) > threshold ? true : false;
+    newState.down = Math.round((downCount / playerCount)) > threshold ? true : false;
+    newState.left = Math.round((leftCount / playerCount)) > threshold ? true : false;
+    newState.right = Math.round((rightCount / playerCount)) > threshold ? true : false;
+    newState.a = Math.round((aCount / playerCount)) > threshold ? true : false;
+    newState.b = Math.round((bCount / playerCount)) > threshold ? true : false;
+    newState.start = Math.round((startCount / playerCount)) > threshold ? true : false;
+    newState.select = Math.round((selectCount / playerCount)) > threshold ? true : false;
+    
+    checkKeys();
+    
+}
+
+function checkKeys(){
+    
+    console.log(currentState.a + "->" + newState.a);
+    
+    if(newState.a != currentState.a){
+        if(newState.a){
+            mc.keyHold("x");
+        } else {
             mc.keyRelease("x");
-        },500);
+        }
     }
+    
+    
+    currentState.a = newState.a;
 }
