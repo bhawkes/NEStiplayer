@@ -31,7 +31,7 @@ var currentState = {
 
 var newState = {};
 
-var threshold = .6;
+var threshold = .1;
 
 io.sockets.on('connection', function(socket){
         
@@ -106,6 +106,26 @@ function updateKeys(){
     newState.select = (selectCount / playerCount) >= threshold ? true : false;
     
     checkKeys();
+    
+    // create object ready for sending to clients
+    var democracy = {
+        	"playerCount": playerCount,
+        	"percentage":{
+                "up":Math.round((upCount / playerCount)*100),
+                "down":Math.round((downCount / playerCount)*100),
+                "left":Math.round((leftCount / playerCount)*100),
+                "right":Math.round((rightCount / playerCount)*100),
+                "a":Math.round((aCount / playerCount)*100),
+                "b":Math.round((bCount / playerCount)*100),
+                "start":Math.round((startCount / playerCount)*100),
+                "select":Math.round((selectCount / playerCount)*100)
+            }
+        }
+        
+    // then send the object
+    io.sockets.emit('democracy', democracy);
+    
+    console.log(democracy);
         
 }
 

@@ -11,6 +11,10 @@
             var $this = $( this );
 
             var socket = io.connect(window.location.hostname);
+            
+            socket.on('democracy',function(data){
+                console.log(data);
+            });
 
             var keys = {
                 'up'     : false,
@@ -97,10 +101,10 @@
                 }
             });
 
-            jQuery(settings.buttonUp).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+            jQuery(settings.buttonUp).on('mousedown mouseup mouseout mouseover touchstart touchend', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                if (e.type == 'touchstart' || e.type == 'mousedown') {
+                if (e.type == 'touchstart' || e.type == 'mousedown' || e.type == 'mouseover') {
                     pressUp();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
                     pressUp(false);
@@ -168,6 +172,10 @@
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
                     pressSelect(false);
                 }
+            });
+            
+            jQuery(settings.buttonUp).touchenter(function(event) {
+                alert('touch enter');
             });
 
             // *****************
