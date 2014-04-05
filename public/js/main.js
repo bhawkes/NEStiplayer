@@ -23,8 +23,62 @@
                 'select' : false
             };
 
-            $this.on('click', function (e) {
-                //console.log(e.target);
+            jQuery(window).on('keydown keyup', function (e) {
+                if (e.type == 'keydown') {
+                    switch(e.keyCode) {
+                        case 87: // W
+                            pressUp();
+                            break;
+                        case 83: // S
+                            pressDown();
+                            break;
+                        case 65: // A
+                            pressLeft();
+                            break;
+                        case 68: // D
+                            pressRight();
+                            break;
+                        case 32: // Space
+                            pressA();
+                            break;
+                        case 80: // P
+                            pressB();
+                            break;
+                        case 89: // Y
+                            pressStart();
+                            break;
+                        case 84: // T
+                            pressSelect();
+                            break;
+                    }
+                } else if (e.type == 'keyup') {
+                    switch(e.keyCode) {
+                        case 87: // W
+                            pressUp(false);
+                            break;
+                        case 83: // S
+                            pressDown(false);
+                            break;
+                        case 65: // A
+                            pressLeft(false);
+                            break;
+                        case 68: // D
+                            pressRight(false);
+                            break;
+                        case 32: // Space
+                            pressA(false);
+                            break;
+                        case 80: // P
+                            pressB(false);
+                            break;
+                        case 89: // Y
+                            pressStart(false);
+                            break;
+                        case 84: // T
+                            pressSelect(false);
+                            break;
+                    }
+                }
             });
 
             jQuery(settings.buttonUp).on('mousedown mouseup mouseout touchstart touchend', function (e) {
@@ -91,60 +145,88 @@
             // Send the keys to the server
             function sendKeyState() {
                 socket.emit('keys',keys);
-                console.log('sendKeyState');
             }
 
-            // All the button handling
+            // All the button handling. These 8 functions could be refactored into a single function that takes a button as a parameter
             function pressUp(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.up = pressing;
                 sendKeyState();
                 if (pressing) {
+                    jQuery(settings.buttonUp).css('fill', '#CCCCCC');
                 } else {
-
+                    jQuery(settings.buttonUp).css('fill', '#1A1A1A');
                 }
             }
             function pressDown(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.down = pressing;
                 sendKeyState();
-                console.log('Down');
+                if (pressing) {
+                    jQuery(settings.buttonDown).css('fill', '#CCCCCC');
+                } else {
+                    jQuery(settings.buttonDown).css('fill', '#1A1A1A');
+                }
             }
             function pressLeft(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.left = pressing;
                 sendKeyState();
-                console.log('left');
+                if (pressing) {
+                    jQuery(settings.buttonLeft).css('fill', '#CCCCCC');
+                } else {
+                    jQuery(settings.buttonLeft).css('fill', '#1A1A1A');
+                }
             }
             function pressRight(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.right = pressing;
                 sendKeyState();
-                console.log('right');
+                if (pressing) {
+                    jQuery(settings.buttonRight).css('fill', '#CCCCCC');
+                } else {
+                    jQuery(settings.buttonRight).css('fill', '#1A1A1A');
+                }
             }
             function pressA(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.a = pressing;
                 sendKeyState();
-                console.log('a');
+                if (pressing) {
+                    jQuery(settings.buttonA).css('fill', '#AA0000');
+                } else {
+                    jQuery(settings.buttonA).css('fill', '#FF0000');
+                }
             }
             function pressB(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.b = pressing;
                 sendKeyState();
-                console.log('b');
+                if (pressing) {
+                    jQuery(settings.buttonB).css('fill', '#AA0000');
+                } else {
+                    jQuery(settings.buttonB).css('fill', '#FF0000');
+                }
             }
             function pressStart(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.start = pressing;
                 sendKeyState();
-                console.log('start');
+                if (pressing) {
+                    jQuery(settings.buttonStart).css('fill', '#CCCCCC');
+                } else {
+                    jQuery(settings.buttonStart).css('fill', '#1A1A1A');
+                }
             }
             function pressSelect(pressing) {
                 pressing = typeof pressing !== 'undefined' ? pressing : true;
                 keys.select = pressing;
                 sendKeyState();
-                console.log('select');
+                if (pressing) {
+                    jQuery(settings.buttonSelect).css('fill', '#CCCCCC');
+                } else {
+                    jQuery(settings.buttonSelect).css('fill', '#1A1A1A');
+                }
             }
         });
 
