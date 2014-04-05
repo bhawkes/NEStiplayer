@@ -13,14 +13,14 @@
             var socket = io.connect(window.location.hostname);
             
             socket.on('democracy',function(data){
-                jQuery("#value-up").find(".inner").css('height',data.percentage.up/data.playerCount);
-                jQuery("#value-down").find(".inner").css('height',data.percentage.down/data.playerCount);
-                jQuery("#value-left").find(".inner").css('height',data.percentage.left/data.playerCount);
-                jQuery("#value-right").find(".inner").css('height',data.percentage.right/data.playerCount);
-                jQuery("#value-a").find(".inner").css('height',data.percentage.a/data.playerCount);
-                jQuery("#value-b").find(".inner").css('height',data.percentage.b/data.playerCount);
-                jQuery("#value-start").find(".inner").css('height',data.percentage.start/data.playerCount);
-                jQuery("#value-select").find(".inner").css('height',data.percentage.select/data.playerCount);
+                jQuery("#value-up").find(".inner").css('height',data.percentage.up+"%");
+                jQuery("#value-down").find(".inner").css('height',data.percentage.down+"%");
+                jQuery("#value-left").find(".inner").css('height',data.percentage.left+"%");
+                jQuery("#value-right").find(".inner").css('height',data.percentage.right+"%");
+                jQuery("#value-a").find(".inner").css('height',data.percentage.a+"%");
+                jQuery("#value-b").find(".inner").css('height',data.percentage.b+"%");
+                jQuery("#value-start").find(".inner").css('height',data.percentage.start+"%");
+                jQuery("#value-select").find(".inner").css('height',data.percentage.select+"%");
             });
 
             var keys = {
@@ -33,6 +33,25 @@
                 'start'  : false,
                 'select' : false
             };
+            
+            var touchedElem = null;
+            
+            jQuery(document).on('touchmove',function(e) {
+            
+                var elem = document.elementFromPoint(e.originalEvent.touches[0].clientX,e.originalEvent.touches[0].clientY).id;
+            
+                if(touchedElem != elem){
+                    touchedElem = elem;
+                    console.log('1');
+                } else {
+                    console.log('2');
+                }
+                
+                //console.log(elem);
+                
+                e.preventDefault();
+            });
+        
 
             jQuery(window).on('keydown keyup', function (e) {
                 if (e.type == 'keydown') {
@@ -180,10 +199,7 @@
                     pressSelect(false);
                 }
             });
-            
-            jQuery(settings.buttonUp).touchenter(function(event) {
-                alert('touch enter');
-            });
+        
 
             // *****************
             // Private functions
