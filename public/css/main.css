@@ -1,3 +1,7 @@
 #nes-controller {
     vertical-align: top;
 }
+
+#up-button {
+    z-index: 50;
+}
