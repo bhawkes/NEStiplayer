@@ -1,10 +1,7 @@
 * {
     -webkit-user-select:none;
     user-select:none;
-}
-
-body {
-    position: relative;
+    overflow: hidden;
 }
 
 #nes-controller {
