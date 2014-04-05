@@ -27,28 +27,44 @@
                 if (e.type == 'keydown') {
                     switch(e.keyCode) {
                         case 87: // W
-                            pressUp();
+                            if (!keys.up) {
+                                pressUp();
+                            }
                             break;
                         case 83: // S
-                            pressDown();
+                            if (!keys.down) {
+                                pressDown();
+                            }
                             break;
                         case 65: // A
-                            pressLeft();
+                            if (!keys.left) {
+                                pressLeft();
+                            }
                             break;
                         case 68: // D
-                            pressRight();
+                            if (!keys.right) {
+                                pressRight();
+                            }
                             break;
                         case 32: // Space
-                            pressA();
+                            if (!keys.a) {
+                                pressA();
+                            }
                             break;
                         case 80: // P
-                            pressB();
+                            if (!keys.b) {
+                                pressB();
+                            }
                             break;
                         case 89: // Y
-                            pressStart();
+                            if (!keys.start) {
+                                pressStart();
+                            }
                             break;
                         case 84: // T
-                            pressSelect();
+                            if (!keys.select) {
+                                pressSelect();
+                            }
                             break;
                     }
                 } else if (e.type == 'keyup') {
