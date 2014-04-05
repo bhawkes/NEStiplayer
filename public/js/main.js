@@ -21,7 +21,6 @@
                 jQuery("#value-b").find(".inner").css('height',data.percentage.b/data.playerCount);
                 jQuery("#value-start").find(".inner").css('height',data.percentage.start/data.playerCount);
                 jQuery("#value-select").find(".inner").css('height',data.percentage.select/data.playerCount);
-                console.log(data);
             });
 
             var keys = {
