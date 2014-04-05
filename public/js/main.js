@@ -13,6 +13,14 @@
             var socket = io.connect(window.location.hostname);
             
             socket.on('democracy',function(data){
+                jQuery("#value-up").find(".inner").css('height',data.percentage.up/data.playerCount);
+                jQuery("#value-down").find(".inner").css('height',data.percentage.down/data.playerCount);
+                jQuery("#value-left").find(".inner").css('height',data.percentage.left/data.playerCount);
+                jQuery("#value-right").find(".inner").css('height',data.percentage.right/data.playerCount);
+                jQuery("#value-a").find(".inner").css('height',data.percentage.a/data.playerCount);
+                jQuery("#value-b").find(".inner").css('height',data.percentage.b/data.playerCount);
+                jQuery("#value-start").find(".inner").css('height',data.percentage.start/data.playerCount);
+                jQuery("#value-select").find(".inner").css('height',data.percentage.select/data.playerCount);
                 console.log(data);
             });
 
