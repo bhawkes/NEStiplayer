@@ -7,6 +7,7 @@ var express = require('express'),
 server.listen(3000);
 
 io.set( 'log level', 1 );
+io.set( 'close timeout', 30 );
 
 app.use(express.static(__dirname + "/public"));
 
@@ -30,11 +31,13 @@ var currentState = {
 
 var newState = {};
 
-var threshold = .5;
+var threshold = .6;
 
 io.sockets.on('connection', function(socket){
         
     playerCount++;
+    
+    console.log('connect ' + socket.id.substring(0,3) + " " + playerCount);
     
     players[socket.id] = {
         keys:{
@@ -58,6 +61,7 @@ io.sockets.on('connection', function(socket){
     socket.on('disconnect', function(){
         delete players[socket.id];
         playerCount--;
+        console.log('disconnect ' + socket.id.substring(0,3) + " " +playerCount);
     });
 
 });
@@ -91,32 +95,88 @@ function updateKeys(){
     }
     
     newState = {};
-    
-    newState.up = Math.round((upCount / playerCount)) > threshold ? true : false;
-    newState.down = Math.round((downCount / playerCount)) > threshold ? true : false;
-    newState.left = Math.round((leftCount / playerCount)) > threshold ? true : false;
-    newState.right = Math.round((rightCount / playerCount)) > threshold ? true : false;
-    newState.a = Math.round((aCount / playerCount)) > threshold ? true : false;
-    newState.b = Math.round((bCount / playerCount)) > threshold ? true : false;
-    newState.start = Math.round((startCount / playerCount)) > threshold ? true : false;
-    newState.select = Math.round((selectCount / playerCount)) > threshold ? true : false;
+        
+    newState.up = (upCount / playerCount) >= threshold ? true : false;
+    newState.down = (downCount / playerCount) >= threshold ? true : false;
+    newState.left = (leftCount / playerCount) >= threshold ? true : false;
+    newState.right =(rightCount / playerCount) >= threshold ? true : false;
+    newState.a = (aCount / playerCount) >= threshold ? true : false;
+    newState.b = (bCount / playerCount) >= threshold ? true : false;
+    newState.start = (startCount / playerCount) >= threshold ? true : false;
+    newState.select = (selectCount / playerCount) >= threshold ? true : false;
     
     checkKeys();
-    
+        
 }
 
 function checkKeys(){
     
-    console.log(currentState.a + "->" + newState.a);
+    //console.log(playerCount + currentState.a + "->" + newState.a);
     
-    if(newState.a != currentState.a){
-        if(newState.a){
-            mc.keyHold("x");
+    if(newState.up != currentState.up){
+        if(newState.up){
+         mc.keyHold("up");
         } else {
-            mc.keyRelease("x");
+         mc.keyRelease("up");
         }
     }
     
+    if(newState.down != currentState.down){
+        if(newState.down){
+         mc.keyHold("down");
+        } else {
+         mc.keyRelease("down");
+        }
+    }
     
-    currentState.a = newState.a;
+    if(newState.left != currentState.left){
+        if(newState.left){
+         mc.keyHold("left");
+        } else {
+         mc.keyRelease("left");
+        }
+    }
+    
+    if(newState.right != currentState.right){
+        if(newState.right){
+         mc.keyHold("right");
+        } else {
+         mc.keyRelease("right");
+        }
+    }
+    
+    if(newState.a != currentState.a){
+        if(newState.a){
+         mc.keyHold("x");
+        } else {
+         mc.keyRelease("x");
+        }
+    }
+    
+    if(newState.b != currentState.b){
+        if(newState.b){
+         mc.keyHold("z");
+        } else {
+         mc.keyRelease("z");
+        }
+    }
+    
+    if(newState.start != currentState.start){
+        if(newState.start){
+         mc.keyHold("enter");
+        } else {
+         mc.keyRelease("enter");
+        }
+    }
+    
+    if(newState.select != currentState.select){
+        if(newState.select){
+         mc.keyHold("shift");
+        } else {
+         mc.keyRelease("shift");
+        }
+    }
+
+    currentState= newState;
+    
 }
