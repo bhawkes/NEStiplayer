@@ -98,6 +98,8 @@
             });
 
             jQuery(settings.buttonUp).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressUp();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -105,6 +107,8 @@
                 }
             });
             jQuery(settings.buttonDown).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressDown();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -112,6 +116,8 @@
                 }
             });
             jQuery(settings.buttonLeft).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressLeft();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -119,6 +125,8 @@
                 }
             });
             jQuery(settings.buttonRight).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressRight();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -126,6 +134,8 @@
                 }
             });
             jQuery(settings.buttonA).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressA();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -133,6 +143,8 @@
                 }
             });
             jQuery(settings.buttonB).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressB();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -140,6 +152,8 @@
                 }
             });
             jQuery(settings.buttonStart).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressStart();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
@@ -147,6 +161,8 @@
                 }
             });
             jQuery(settings.buttonSelect).on('mousedown mouseup mouseout touchstart touchend', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 if (e.type == 'touchstart' || e.type == 'mousedown') {
                     pressSelect();
                 } else if (e.type == 'touchend' || e.type == 'mouseup' || e.type == 'mouseout') {
